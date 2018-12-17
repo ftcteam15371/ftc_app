@@ -30,7 +30,6 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-
         // Run until the end of the match (driver presses STOP)r
         while (opModeIsActive()) {
             telemetry.addData("Status", "Running");
