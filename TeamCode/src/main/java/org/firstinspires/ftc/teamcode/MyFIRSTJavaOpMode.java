@@ -37,6 +37,4 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             telemetry.update();
         }
     }
-
-
 }
