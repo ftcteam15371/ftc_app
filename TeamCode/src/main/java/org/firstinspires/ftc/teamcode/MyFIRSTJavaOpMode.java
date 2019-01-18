@@ -20,6 +20,8 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        // What? No comments? What is this code supposed to do???
+        
         imu = hardwareMap.get(Gyroscope.class, "imu");
         motorTest = hardwareMap.get(DcMotor.class, "motorTest");
         motorTest2 = hardwareMap.get(DcMotor.class, "motorTest2");
