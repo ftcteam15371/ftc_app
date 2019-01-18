@@ -42,6 +42,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             telemetry.addData("Motor Power", motorTest.getPower());
             tgtPower2 = -this.gamepad1.right_stick_y;
             motorTest2.setPower(tgtPower2);
+            //tgtPower2 *= -1;
             telemetry.addData("Target Power", tgtPower2);
             telemetry.addData("Motor Power", motorTest2.getPower());
             telemetry.addData("Status", "Running");
