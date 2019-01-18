@@ -38,15 +38,23 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         double tgtPower = 0;
         double tgtPower2 = 0;
         while (opModeIsActive()) {
-            tgtPower = -this.gamepad1.left_stick_y;
+            /*CHANGES: Removed negative symbol from "tgtPower = this.gamepad1.left_stick_y;,
+           Changed right and left for easier steering.
+
+             */
+            tgtPower = this.gamepad1.right_stick_y;
             motorTest.setPower(tgtPower);
             telemetry.addData("Target Power", tgtPower);
             telemetry.addData("Motor Power", motorTest.getPower());
-            tgtPower2 = -this.gamepad1.right_stick_y;
+            tgtPower2 = -this.gamepad1.left_stick_y;
             motorTest2.setPower(tgtPower2);
             //tgtPower2 *= -1;
-            telemetry.addData("Target Power", tgtPower2);
-            telemetry.addData("Motor Power", motorTest2.getPower());
+            telemetry.addData("Target Power 2", tgtPower2);
+            telemetry.addData("Motor Power 2", motorTest2.getPower());
+            while (this.gamepad1.b == true) {
+                motorTest.setPower(1);
+                motorTest2.setPower(-1);
+            }
             telemetry.addData("Status", "Running");
             telemetry.update();
 
