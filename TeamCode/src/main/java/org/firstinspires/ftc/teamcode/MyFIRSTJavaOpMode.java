@@ -40,7 +40,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         while (opModeIsActive()) {
             /*CHANGES: Removed negative symbol from "tgtPower = this.gamepad1.left_stick_y;,
            Changed right and left for easier steering.
-
+            Button added to do straight
              */
             tgtPower = this.gamepad1.right_stick_y;
             motorTest.setPower(tgtPower);
