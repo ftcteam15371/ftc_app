@@ -10,6 +10,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class MyFIRSTJavaOpMode extends LinearOpMode {
+
+    // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
+    
     private Gyroscope imu;
     private DcMotor motorTest;
     private DcMotor motorTest2;
@@ -21,7 +24,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
     @Override
     public void runOpMode() {
         // What? No comments? What is this code supposed to do???
-        
+
         imu = hardwareMap.get(Gyroscope.class, "imu");
         motorTest = hardwareMap.get(DcMotor.class, "motorTest");
         motorTest2 = hardwareMap.get(DcMotor.class, "motorTest2");
