@@ -13,6 +13,12 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
 
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
     
+    // Sample mecanum drive code:
+    // https://ftcforum.usfirst.org/forum/ftc-technology/android-studio/6361-mecanum-wheels-drive-code-example
+    // https://ftcforum.usfirst.org/forum/ftc-technology/android-studio/60054-mecanum-wheels-programming
+    // https://github.com/trc492/FtcSamples/blob/master/Ftc3543Lib/src/main/java/trclib/TrcMecanumDriveBase.java
+    // https://www.google.com/search?safe=on&q=ftc+java+mecanum
+    
     private Gyroscope imu;
     private DcMotor motorTest;
     private DcMotor motorTest2;
