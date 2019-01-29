@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class MyFIRSTJavaOpMode extends LinearOpMode {
 
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
-    
+
     private Gyroscope imu;
     private DcMotor motorTest;
     private DcMotor motorTest2;
