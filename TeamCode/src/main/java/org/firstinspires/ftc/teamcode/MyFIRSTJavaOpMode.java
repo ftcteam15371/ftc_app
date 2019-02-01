@@ -33,10 +33,10 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         // What? No comments? What is this code supposed to do???
         // Stuff.
         imu = hardwareMap.get(Gyroscope.class, "imu");
-        motorTestLeftFront = hardwareMap.get(DcMotor.class, "leftfront");
-        motorTestLeftRear = hardwareMap.get(DcMotor.class, "leftback");
-        motorTestRightFront = hardwareMap.get(DcMotor.class, "rightfront");
-        motorTestRightRear = hardwareMap.get(DcMotor.class, "rightback");
+        motorTestLeftFront = hardwareMap.get(DcMotor.class, "motorFrontLeft");
+        motorTestLeftRear = hardwareMap.get(DcMotor.class, "motorBackLeft");
+        motorTestRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
+        motorTestRightRear = hardwareMap.get(DcMotor.class, "motorBackRight");
         digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
         servoTest = hardwareMap.get(Servo.class, "servoTest");
@@ -73,34 +73,33 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             telemetry.addData("Motor Power Left Front", motorTestLeftFront.getPower());
             telemetry.addData("Motor Power Left Rear", motorTestLeftRear.getPower());
             //right trigger go forward.
-            while (this.gamepad1.right_trigger != 0) {
+            while (this.gamepad1.dpad_down == true) {
                 motorTestLeftFront.setPower(-1);
                 motorTestLeftRear.setPower(-1);
                 motorTestRightFront.setPower(1);
                 motorTestRightRear.setPower(1);
             }
             //left trigger go backwards
-            while (this.gamepad1.left_trigger != 0) {
+            while (this.gamepad1.dpad_up == true) {
                 motorTestLeftFront.setPower(1);
                 motorTestLeftRear.setPower(1);
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
+            while (this.gamepad1.dpad_right == true) {
+                motorTestLeftFront.setPower(-1);
+                motorTestLeftRear.setPower(1);
+                motorTestRightFront.setPower(-1);
+                motorTestRightRear.setPower(1);
+            }
+            while (this.gamepad1.dpad_left == true) {
+                motorTestLeftFront.setPower(1);
+                motorTestLeftRear.setPower(-1);
+                motorTestRightFront.setPower(1);
+                motorTestRightRear.setPower(-1);
+            }
             telemetry.addData("Status", "Running");
             telemetry.update();
-            // https://ftcforum.usfirst.org/forum/ftc-technology/android-studio/6361-mecanum-wheels-drive-code-example
-            double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
-            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
-            double rightX = gamepad1.right_stick_x;
-            final double v1 = r * Math.cos(robotAngle) + rightX;
-            final double v2 = r * Math.sin(robotAngle) - rightX;
-            final double v3 = r * Math.sin(robotAngle) + rightX;
-            final double v4 = r * Math.cos(robotAngle) - rightX;
-
-            motorTestLeftFront.setPower(v1);
-            motorTestRightFront.setPower(v2);
-            motorTestLeftRear.setPower(v3);
-            motorTestRightRear.setPower(v4);
         }
     }
 }
