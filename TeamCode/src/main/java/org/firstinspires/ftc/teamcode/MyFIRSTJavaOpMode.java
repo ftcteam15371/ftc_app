@@ -17,7 +17,6 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
     // https://ftcforum.usfirst.org/forum/ftc-technology/android-studio/60054-mecanum-wheels-programming
     // https://github.com/trc492/FtcSamples/blob/master/Ftc3543Lib/src/main/java/trclib/TrcMecanumDriveBase.java
     // https://www.google.com/search?safe=on&q=ftc+java+mecanum
-
     private Gyroscope imu;
     private DcMotor motorTestLeftFront;
     private DcMotor motorTestLeftRear;
@@ -56,16 +55,57 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
            Changed right and left for easier steering.
             Buttons added to do straight
              */
-            tgtPowerRightFront = this.gamepad1.right_stick_y;
-            tgtPowerRightRear = this.gamepad1.right_stick_y;
+            if (Math.abs(this.gamepad1.right_stick_x) > Math.abs(this.gamepad1.right_stick_y)) {
+                if (Math.abs(this.gamepad1.left_stick_y) > Math.abs(this.gamepad1.left_stick_x)) {
+                    motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
+                    motorTestRightRear.setPower(this.gamepad1.right_stick_x);
+                } else {
+                    motorTestRightFront.setPower(this.gamepad1.right_stick_x);
+                    motorTestRightRear.setPower(-this.gamepad1.right_stick_x);
+                }
+            }
+            if (Math.abs(this.gamepad1.left_stick_x) > Math.abs(this.gamepad1.left_stick_y)) {
+                if (Math.abs(this.gamepad1.right_stick_y) > Math.abs(this.gamepad1.right_stick_x)) {
+                    motorTestLeftRear.setPower(-this.gamepad1.left_stick_x);
+                    motorTestRightFront.setPower(this.gamepad1.right_stick_y);
+                } else {
+                    motorTestLeftFront.setPower(this.gamepad1.left_stick_x);
+                    motorTestLeftRear.setPower(-this.gamepad1.left_stick_x);
+                }
+            }
+            if (Math.abs(this.gamepad1.right_stick_y) > Math.abs(this.gamepad1.right_stick_x)) {
+                    if (Math.abs(this.gamepad1.right_stick_y) > Math.abs(this.gamepad1.right_stick_x)) {
+                        motorTestLeftRear.setPower(-this.gamepad1.left_stick_x);
+                        motorTestRightFront.setPower(this.gamepad1.right_stick_y);
+                    } else {
+                        motorTestRightFront.setPower(this.gamepad1.right_stick_y);
+                        motorTestRightRear.setPower(this.gamepad1.right_stick_y);
+                    }
+            }
+            if (Math.abs(this.gamepad1.left_stick_y) > Math.abs(this.gamepad1.left_stick_x)) {
+                    if (Math.abs(this.gamepad1.right_stick_x) > Math.abs(this.gamepad1.right_stick_y)) {
+                        motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
+                        motorTestRightRear.setPower(this.gamepad1.right_stick_x);
+                    } else {
+                        motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
+                        motorTestLeftRear.setPower(-this.gamepad1.left_stick_y);
+                    }
+            }
+            if (this.gamepad1.left_stick_x == 0 & this.gamepad1.left_stick_y == 0) {
+                motorTestLeftFront.setPower(0);
+                motorTestLeftRear.setPower(0);
+            }
+            if (this.gamepad1.right_stick_x == 0 & this.gamepad1.right_stick_y == 0) {
+                motorTestRightFront.setPower(0);
+                motorTestRightRear.setPower(0);
+            }
+
             motorTestRightFront.setPower(tgtPowerRightFront);
             motorTestRightRear.setPower(tgtPowerRightRear);
             telemetry.addData("Target Power Right Front", tgtPowerRightFront);
             telemetry.addData("Target Power Right Rear", tgtPowerRightRear);
             telemetry.addData("Motor Power Right Front", motorTestRightFront.getPower());
             telemetry.addData("Motor Power Right Rear", motorTestRightRear.getPower());
-            tgtPowerLeftFront = -this.gamepad1.left_stick_y;
-            tgtPowerLeftRear = -this.gamepad1.left_stick_y;
             motorTestLeftFront.setPower(tgtPowerLeftFront);
             motorTestLeftRear.setPower(tgtPowerLeftRear);
             telemetry.addData("Target Power Left Front", tgtPowerLeftFront);
@@ -86,13 +126,13 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
-            while (this.gamepad1.dpad_right == true) {
+            while (this.gamepad1.dpad_left == true) {
                 motorTestLeftFront.setPower(-1);
                 motorTestLeftRear.setPower(1);
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(1);
             }
-            while (this.gamepad1.dpad_left == true) {
+            while (this.gamepad1.dpad_right == true) {
                 motorTestLeftFront.setPower(1);
                 motorTestLeftRear.setPower(-1);
                 motorTestRightFront.setPower(1);
