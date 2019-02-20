@@ -56,18 +56,16 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             //Change Notes: made the diagonals. they probably don't work, so just revert them if they don't.
             //yep.
 
-            // simple forward - backwards movement, using the joystick,s
+            // simple forward - backwards movement, using the joysticks
             
             //
             // The brackets are wrong on these first two
             //
-            {
-                if (Math.abs(this.gamepad1.right_stick_y) > 0) ;
+                if (Math.abs(this.gamepad1.right_stick_y) > 0) ; {
                 motorTestRightFront.setPower(this.gamepad1.right_stick_y);
                 motorTestRightRear.setPower(this.gamepad1.right_stick_y);
             }
-            {
-              if (Math.abs(this.gamepad1.left_stick_y) > 0);
+              if (Math.abs(this.gamepad1.left_stick_y) > 0); {
                     motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
                     motorTestLeftRear.setPower(-this.gamepad1.left_stick_y);
             }
@@ -107,25 +105,24 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
+            motorTestLeftFront.setPower(-1);
             while (this.gamepad1.dpad_left == true) {
-                motorTestLeftFront.setPower(-1);
                 motorTestLeftRear.setPower(1);
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(1);
             }
             while (this.gamepad1.dpad_right == true) {
+                motorTestRightFront.setPower(1);
                 motorTestLeftFront.setPower(1);
                 motorTestLeftRear.setPower(-1);
-                motorTestRightFront.setPower(1);
+                motorTestRightRear.setPower(-1);
+            }
+            //DIAGONAL TESTING GROUNDS (pubg theme plays)
+            while (this.gamepad1.right_trigger == 1); {
+                motorTestLeftFront.setPower(1);
                 motorTestRightRear.setPower(-1);
             }
 
-            while (this.gamepad1.right_trigger == 1) {
-                motorTestRightFront.setPower(1);
-                motorTestRightRear.setPower(-1);
-                motorTestLeftFront.setPower(1);
-                motorTestLeftRear.setPower(-1);
-            }
             telemetry.addData("Status", "Running");
             telemetry.update();
         }
