@@ -36,6 +36,8 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         motorTestLeftRear = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorTestRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorTestRightRear = hardwareMap.get(DcMotor.class, "motorBackRight");
+        
+        // these are never used
         digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
         servoTest = hardwareMap.get(Servo.class, "servoTest");
@@ -55,6 +57,10 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             //yep.
 
             // simple forward - backwards movement, using the joystick,s
+            
+            //
+            // The brackets are wrong on these first two
+            //
             {
                 if (Math.abs(this.gamepad1.right_stick_y) > 0) ;
                 motorTestRightFront.setPower(this.gamepad1.right_stick_y);
