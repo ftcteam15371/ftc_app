@@ -51,46 +51,21 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         double tgtPowerLeftFront = 0;
         double tgtPowerLeftRear = 0;
         while (opModeIsActive()) {
-            /*CHANGES: Removed negative symbol from "tgtPower = this.gamepad1.left_stick_y;,
-           Changed right and left for easier steering.
-            Buttons added to do straight
-             */
-            if (Math.abs(this.gamepad1.right_stick_x) > Math.abs(this.gamepad1.right_stick_y)) {
-                if (Math.abs(this.gamepad1.left_stick_y) > Math.abs(this.gamepad1.left_stick_x)) {
+            //Change Notes: made the diagonals. they probably don't work, so just revert them if they don't.
+            //yep.
+
+            // simple forward - backwards movement, using the joystick,s
+            {
+                if (Math.abs(this.gamepad1.right_stick_y) > 0) ;
+                motorTestRightFront.setPower(this.gamepad1.right_stick_y);
+                motorTestRightRear.setPower(this.gamepad1.right_stick_y);
+            }
+            {
+              if (Math.abs(this.gamepad1.left_stick_y) > 0);
                     motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
-                    motorTestRightRear.setPower(this.gamepad1.right_stick_x);
-                } else {
-                    motorTestRightFront.setPower(this.gamepad1.right_stick_x);
-                    motorTestRightRear.setPower(-this.gamepad1.right_stick_x);
-                }
+                    motorTestLeftRear.setPower(-this.gamepad1.left_stick_y);
             }
-            if (Math.abs(this.gamepad1.left_stick_x) > Math.abs(this.gamepad1.left_stick_y)) {
-                if (Math.abs(this.gamepad1.right_stick_y) > Math.abs(this.gamepad1.right_stick_x)) {
-                    motorTestLeftRear.setPower(-this.gamepad1.left_stick_x);
-                    motorTestRightFront.setPower(this.gamepad1.right_stick_y);
-                } else {
-                    motorTestLeftFront.setPower(this.gamepad1.left_stick_x);
-                    motorTestLeftRear.setPower(-this.gamepad1.left_stick_x);
-                }
-            }
-            if (Math.abs(this.gamepad1.right_stick_y) > Math.abs(this.gamepad1.right_stick_x)) {
-                    if (Math.abs(this.gamepad1.right_stick_y) > Math.abs(this.gamepad1.right_stick_x)) {
-                        motorTestLeftRear.setPower(-this.gamepad1.left_stick_x);
-                        motorTestRightFront.setPower(this.gamepad1.right_stick_y);
-                    } else {
-                        motorTestRightFront.setPower(this.gamepad1.right_stick_y);
-                        motorTestRightRear.setPower(this.gamepad1.right_stick_y);
-                    }
-            }
-            if (Math.abs(this.gamepad1.left_stick_y) > Math.abs(this.gamepad1.left_stick_x)) {
-                    if (Math.abs(this.gamepad1.right_stick_x) > Math.abs(this.gamepad1.right_stick_y)) {
-                        motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
-                        motorTestRightRear.setPower(this.gamepad1.right_stick_x);
-                    } else {
-                        motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
-                        motorTestLeftRear.setPower(-this.gamepad1.left_stick_y);
-                    }
-            }
+
             if (this.gamepad1.left_stick_x == 0 & this.gamepad1.left_stick_y == 0) {
                 motorTestLeftFront.setPower(0);
                 motorTestLeftRear.setPower(0);
@@ -112,7 +87,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             telemetry.addData("Target Power Left Rear", tgtPowerLeftRear);
             telemetry.addData("Motor Power Left Front", motorTestLeftFront.getPower());
             telemetry.addData("Motor Power Left Rear", motorTestLeftRear.getPower());
-            //right trigger go forward.
+            // D-Psd controls.
             while (this.gamepad1.dpad_down == true) {
                 motorTestLeftFront.setPower(-1);
                 motorTestLeftRear.setPower(-1);
@@ -137,6 +112,13 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestLeftRear.setPower(-1);
                 motorTestRightFront.setPower(1);
                 motorTestRightRear.setPower(-1);
+            }
+
+            while (this.gamepad1.right_trigger == 1) {
+                motorTestRightFront.setPower(1);
+                motorTestRightRear.setPower(-1);
+                motorTestLeftFront.setPower(1);
+                motorTestLeftRear.setPower(-1);
             }
             telemetry.addData("Status", "Running");
             telemetry.update();
