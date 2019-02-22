@@ -51,14 +51,7 @@ public class MySECONDJavaOpMode extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-        while (this.gamepad1.y == true) {
-            TextToSpeech tts = new TextToSpeech(this, TextToSpeech);
-            tts.setLanguage(Locale.US);
-            tts.speak("Beep Boop Am Rohbit", TextToSpeech.QUEUE_ADD, null);
-        }
 
-
-        });
         // Run until the end of the match (driver presses STOP)
         double tgtPowerRightFront = 0;
         double tgtPowerRightRear = 0;

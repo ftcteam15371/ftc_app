@@ -30,7 +30,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
     private DigitalChannel digitalTouch;
     private DistanceSensor sensorColorRange;
     private Servo servoTest;
-
+    private TextToSpeech tts;
 
     @Override
     public void runOpMode() {
@@ -52,14 +52,9 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
-        while (this.gamepad1.y == true) {
-            TextToSpeech tts = new TextToSpeech(this, TextToSpeech);
-            tts.setLanguage(Locale.US);
-            tts.speak("Beep Boop Am Rohbit", TextToSpeech.QUEUE_ADD, null);
-        }
 
 
-        });
+
         // Run until the end of the match (driver presses STOP)
         double tgtPowerRightFront = 0;
         double tgtPowerRightRear = 0;
@@ -136,6 +131,12 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestRightRear.setPower(-1);
             }
 
+            while (this.gamepad1.y == true) {
+                telemetry.addData("we did a done", "test");
+                tts.setLanguage(Locale.US);
+                tts.speak("Beep Boop Am Rohbit", TextToSpeech.QUEUE_ADD, null);
+
+            }
             telemetry.addData("Status", "Running");
             telemetry.update();
         }
