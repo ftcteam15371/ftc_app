@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import android.speech.tts.TextToSpeech;
-import android.widget.EditText;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -14,7 +13,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import java.util.Locale;
 
 @TeleOp
-public class MyFIRSTJavaOpMode extends LinearOpMode {
+public class MySECONDJavaOpMode extends LinearOpMode {
 
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
 
