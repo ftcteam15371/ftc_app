@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import android.speech.tts.TextToSpeech;
-import android.widget.EditText;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -14,7 +13,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import java.util.Locale;
 
 @TeleOp
-public class MyFIRSTJavaOpMode extends LinearOpMode {
+public class DemoOpMode extends LinearOpMode {
 
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
 
@@ -66,9 +65,6 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
 
             // simple forward - backwards movement, using the joysticks
             
-            //
-            // The brackets are wrong on these first two
-            //
                 if (Math.abs(this.gamepad1.right_stick_y) > 0) ; {
                 motorTestRightFront.setPower(this.gamepad1.right_stick_y);
                 motorTestRightRear.setPower(this.gamepad1.right_stick_y);
@@ -101,6 +97,9 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             telemetry.addData("Motor Power Left Rear", motorTestLeftRear.getPower());
             // D-Psd controls.
             while (this.gamepad1.dpad_down == true) {
+                telemetry.addData("TextToSpeech", "test");
+                tts.setLanguage(Locale.US);
+                tts.speak("Backwards Movement", TextToSpeech.QUEUE_ADD, null);
                 motorTestLeftFront.setPower(-1);
                 motorTestLeftRear.setPower(-1);
                 motorTestRightFront.setPower(1);
@@ -108,6 +107,9 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             }
             //left trigger go backwards
             while (this.gamepad1.dpad_up == true) {
+                telemetry.addData("TextToSpeech", "test");
+                tts.setLanguage(Locale.US);
+                tts.speak("Forward Movement", TextToSpeech.QUEUE_ADD, null);
                 motorTestLeftFront.setPower(1);
                 motorTestLeftRear.setPower(1);
                 motorTestRightFront.setPower(-1);
@@ -115,28 +117,26 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             }
             motorTestLeftFront.setPower(-1);
             while (this.gamepad1.dpad_left == true) {
+                telemetry.addData("TextToSpeech", "test");
+                tts.setLanguage(Locale.US);
+                tts.speak("Left Strafe", TextToSpeech.QUEUE_ADD, null);
                 motorTestLeftRear.setPower(1);
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(1);
             }
             while (this.gamepad1.dpad_right == true) {
+                telemetry.addData("TextToSpeech", "test");
+                tts.setLanguage(Locale.US);
+                tts.speak("Right Strafe", TextToSpeech.QUEUE_ADD, null);
                 motorTestRightFront.setPower(1);
                 motorTestLeftFront.setPower(1);
                 motorTestLeftRear.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
-            //DIAGONAL TESTING GROUNDS (pubg theme plays)
+            //DIAGONAL TESTING GROUNDS (PUBG theme plays)
             while (this.gamepad1.right_trigger == 1); {
                 motorTestLeftFront.setPower(1);
                 motorTestRightRear.setPower(-1);
-            }
-
-
-            while (this.gamepad1.y == true) {
-                telemetry.addData("TextToSpeech", "test");
-                tts.setLanguage(Locale.US);
-                tts.speak("IT'S ALIVE!!! ALIVE!!!", TextToSpeech.QUEUE_ADD, null);
-
             }
             telemetry.addData("Status", "Running");
             telemetry.update();
