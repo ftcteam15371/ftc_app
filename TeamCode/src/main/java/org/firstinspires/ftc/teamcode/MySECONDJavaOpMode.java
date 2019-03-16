@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.speech.tts.TextToSpeech;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,8 +7,6 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
-
-import java.util.Locale;
 
 @TeleOp
 public class MySECONDJavaOpMode extends LinearOpMode {
@@ -29,18 +25,20 @@ public class MySECONDJavaOpMode extends LinearOpMode {
     private DigitalChannel digitalTouch;
     private DistanceSensor sensorColorRange;
     private Servo servoTest;
+    //TODO: Add diagonal motion
+    //TODO: Add TTS speaker support
+    //TODO: play Sonic's Schoolhouse
 
 
     @Override
     public void runOpMode() {
-        // What? No comments? What is this code supposed to do???
-        // Stuff.
+
         imu = hardwareMap.get(Gyroscope.class, "imu");
         motorTestLeftFront = hardwareMap.get(DcMotor.class, "motorFrontLeft");
         motorTestLeftRear = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorTestRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorTestRightRear = hardwareMap.get(DcMotor.class, "motorBackRight");
-        
+
         // these are never used
         digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
@@ -50,7 +48,6 @@ public class MySECONDJavaOpMode extends LinearOpMode {
         telemetry.update();
         // Wait for the game to start (driver presses START)
         waitForStart();
-
 
         // Run until the end of the match (driver presses STOP)
         double tgtPowerRightFront = 0;
@@ -62,17 +59,17 @@ public class MySECONDJavaOpMode extends LinearOpMode {
             //yep.
 
             // simple forward - backwards movement, using the joysticks
-            
+
             //
             // The brackets are wrong on these first two
             //
-                if (Math.abs(this.gamepad1.right_stick_y) > 0) ; {
+            if (Math.abs(this.gamepad1.right_stick_y) > 0) ; {
                 motorTestRightFront.setPower(this.gamepad1.right_stick_y);
                 motorTestRightRear.setPower(this.gamepad1.right_stick_y);
             }
-              if (Math.abs(this.gamepad1.left_stick_y) > 0); {
-                    motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
-                    motorTestLeftRear.setPower(-this.gamepad1.left_stick_y);
+            if (Math.abs(this.gamepad1.left_stick_y) > 0); {
+                motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
+                motorTestLeftRear.setPower(-this.gamepad1.left_stick_y);
             }
 
             if (this.gamepad1.left_stick_x == 0 & this.gamepad1.left_stick_y == 0) {
@@ -110,11 +107,12 @@ public class MySECONDJavaOpMode extends LinearOpMode {
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
-            motorTestLeftFront.setPower(-1);
+
             while (this.gamepad1.dpad_left == true) {
                 motorTestLeftRear.setPower(1);
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(1);
+                motorTestLeftFront.setPower(-1);
             }
             while (this.gamepad1.dpad_right == true) {
                 motorTestRightFront.setPower(1);
@@ -123,11 +121,11 @@ public class MySECONDJavaOpMode extends LinearOpMode {
                 motorTestRightRear.setPower(-1);
             }
             //DIAGONAL TESTING GROUNDS (pubg theme plays)
-            while (this.gamepad1.right_trigger == 1); {
+/*            while (this.gamepad1.right_trigger == 1); {
                 motorTestLeftFront.setPower(1);
                 motorTestRightRear.setPower(-1);
             }
-
+*/
             telemetry.addData("Status", "Running");
             telemetry.update();
         }

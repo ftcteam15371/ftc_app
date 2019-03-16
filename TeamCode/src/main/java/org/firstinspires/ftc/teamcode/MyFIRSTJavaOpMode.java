@@ -113,11 +113,12 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
-            motorTestLeftFront.setPower(-1);
+
             while (this.gamepad1.dpad_left == true) {
                 motorTestLeftRear.setPower(1);
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(1);
+                motorTestLeftFront.setPower(-1);
             }
             while (this.gamepad1.dpad_right == true) {
                 motorTestRightFront.setPower(1);
@@ -125,11 +126,11 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestLeftRear.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
-            //DIAGONAL TESTING GROUNDS (pubg theme plays)
+           /* //DIAGONAL TESTING GROUNDS (pubg theme plays)
             while (this.gamepad1.right_trigger == 1); {
                 motorTestLeftFront.setPower(1);
                 motorTestRightRear.setPower(-1);
-            }
+            } */
 
 
             while (this.gamepad1.y == true) {

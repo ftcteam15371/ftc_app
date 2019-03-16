@@ -115,7 +115,7 @@ public class DemoOpMode extends LinearOpMode {
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
-            motorTestLeftFront.setPower(-1);
+
             while (this.gamepad1.dpad_left == true) {
                 telemetry.addData("TextToSpeech", "test");
                 tts.setLanguage(Locale.US);
@@ -123,6 +123,7 @@ public class DemoOpMode extends LinearOpMode {
                 motorTestLeftRear.setPower(1);
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(1);
+                motorTestLeftFront.setPower(-1);
             }
             while (this.gamepad1.dpad_right == true) {
                 telemetry.addData("TextToSpeech", "test");
@@ -134,12 +135,13 @@ public class DemoOpMode extends LinearOpMode {
                 motorTestRightRear.setPower(-1);
             }
             //DIAGONAL TESTING GROUNDS (PUBG theme plays)
-            while (this.gamepad1.right_trigger == 1); {
+           /* while (this.gamepad1.right_trigger == 0); {
                 motorTestLeftFront.setPower(1);
                 motorTestRightRear.setPower(-1);
-            }
+            } */
             telemetry.addData("Status", "Running");
             telemetry.update();
+
         }
     }
 }
