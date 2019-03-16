@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode;
-
 import android.speech.tts.TextToSpeech;
 import android.widget.EditText;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,65 +8,44 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
-
 import java.util.Locale;
-
 @TeleOp
 public class MyFIRSTJavaOpMode extends LinearOpMode {
-
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
-
-    // Sample mecanum drive code:
-    // https://ftcforum.usfirst.org/forum/ftc-technology/android-studio/60054-mecanum-wheels-programming
-    // https://github.com/trc492/FtcSamples/blob/master/Ftc3543Lib/src/main/java/trclib/TrcMecanumDriveBase.java
-    // https://www.google.com/search?safe=on&q=ftc+java+mecanum
     private Gyroscope imu;
     private DcMotor motorTestLeftFront;
     private DcMotor motorTestLeftRear;
     private DcMotor motorTestRightFront;
     private DcMotor motorTestRightRear;
+    private DcMotor motorTestLinearActuator;
     private DigitalChannel digitalTouch;
     private DistanceSensor sensorColorRange;
     private Servo servoTest;
     private TextToSpeech tts;
-
     @Override
     public void runOpMode() {
-        // What? No comments? What is this code supposed to do???
-        // Stuff.
         imu = hardwareMap.get(Gyroscope.class, "imu");
         motorTestLeftFront = hardwareMap.get(DcMotor.class, "motorFrontLeft");
         motorTestLeftRear = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorTestRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorTestRightRear = hardwareMap.get(DcMotor.class, "motorBackRight");
-        
+        motorTestLinearActuator = hardwareMap.get(DcMotor.class, "motorLinearActuator");
         // these are never used
         digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
         servoTest = hardwareMap.get(Servo.class, "servoTest");
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         // Wait for the game to start (driver presses START)
         waitForStart();
-
-
-
-
         // Run until the end of the match (driver presses STOP)
         double tgtPowerRightFront = 0;
         double tgtPowerRightRear = 0;
         double tgtPowerLeftFront = 0;
         double tgtPowerLeftRear = 0;
+        double tgtPowerLinearActuator = 0;
         while (opModeIsActive()) {
-            //Change Notes: made the diagonals. they probably don't work, so just revert them if they don't.
-            //yep.
-
-            // simple forward - backwards movement, using the joysticks
-            
-            //
-            // The brackets are wrong on these first two
-            //
+            // simple movement using the joysticks
                 if (Math.abs(this.gamepad1.right_stick_y) > 0) ; {
                 motorTestRightFront.setPower(this.gamepad1.right_stick_y);
                 motorTestRightRear.setPower(this.gamepad1.right_stick_y);
@@ -77,7 +54,6 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                     motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
                     motorTestLeftRear.setPower(-this.gamepad1.left_stick_y);
             }
-
             if (this.gamepad1.left_stick_x == 0 & this.gamepad1.left_stick_y == 0) {
                 motorTestLeftFront.setPower(0);
                 motorTestLeftRear.setPower(0);
@@ -86,19 +62,21 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestRightFront.setPower(0);
                 motorTestRightRear.setPower(0);
             }
-
             motorTestRightFront.setPower(tgtPowerRightFront);
             motorTestRightRear.setPower(tgtPowerRightRear);
             telemetry.addData("Target Power Right Front", tgtPowerRightFront);
             telemetry.addData("Target Power Right Rear", tgtPowerRightRear);
-            telemetry.addData("Motor Power Right Front", motorTestRightFront.getPower());
-            telemetry.addData("Motor Power Right Rear", motorTestRightRear.getPower());
+            telemetry.addData("Right Front Motor Power", motorTestRightFront.getPower());
+            telemetry.addData("Right Rear Motor Power", motorTestRightRear.getPower());
             motorTestLeftFront.setPower(tgtPowerLeftFront);
             motorTestLeftRear.setPower(tgtPowerLeftRear);
             telemetry.addData("Target Power Left Front", tgtPowerLeftFront);
             telemetry.addData("Target Power Left Rear", tgtPowerLeftRear);
-            telemetry.addData("Motor Power Left Front", motorTestLeftFront.getPower());
-            telemetry.addData("Motor Power Left Rear", motorTestLeftRear.getPower());
+            telemetry.addData("Left Front Motor Power", motorTestLeftFront.getPower());
+            telemetry.addData("Left Rear Motor Power", motorTestLeftRear.getPower());
+            motorTestLinearActuator.setPower(tgtPowerLinearActuator);
+            telemetry.addData("Target Linear Actuator Power", tgtPowerLinearActuator );
+            telemetry.addData("Linear Actuator Motor Power", motorTestLinearActuator.getPower());
             // D-Psd controls.
             while (this.gamepad1.dpad_down == true) {
                 motorTestLeftFront.setPower(-1);
@@ -113,11 +91,11 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
-            motorTestLeftFront.setPower(-1);
             while (this.gamepad1.dpad_left == true) {
                 motorTestLeftRear.setPower(1);
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(1);
+                motorTestLeftFront.setPower(-1);
             }
             while (this.gamepad1.dpad_right == true) {
                 motorTestRightFront.setPower(1);
@@ -125,18 +103,18 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestLeftRear.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
-            //DIAGONAL TESTING GROUNDS (pubg theme plays)
+           /* //DIAGONAL TESTING GROUNDS (pubg theme plays)
             while (this.gamepad1.right_trigger == 1); {
                 motorTestLeftFront.setPower(1);
                 motorTestRightRear.setPower(-1);
+            } */
+            while (this.gamepad1.a == true) {
+                motorTestLinearActuator.setPower(1);
             }
-
-
             while (this.gamepad1.y == true) {
                 telemetry.addData("TextToSpeech", "test");
                 tts.setLanguage(Locale.US);
                 tts.speak("IT'S ALIVE!!! ALIVE!!!", TextToSpeech.QUEUE_ADD, null);
-
             }
             telemetry.addData("Status", "Running");
             telemetry.update();
