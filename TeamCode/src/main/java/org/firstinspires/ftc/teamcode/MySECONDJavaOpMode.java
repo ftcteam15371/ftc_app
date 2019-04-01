@@ -25,6 +25,9 @@ public class MySECONDJavaOpMode extends LinearOpMode {
     private DigitalChannel digitalTouch;
     private DistanceSensor sensorColorRange;
     private Servo servoTest;
+    //TODO: Add diagonal motion
+    //TODO: Add TTS speaker support
+    //TODO: play Sonic's Schoolhouse
 
     @Override
     public void runOpMode() {
