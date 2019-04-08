@@ -103,19 +103,28 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestLeftRear.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
-           /* //DIAGONAL TESTING GROUNDS (pubg theme plays)
-            while (this.gamepad1.right_trigger == 1); {
+            if (this.gamepad1.y == true) {
                 motorTestLeftFront.setPower(1);
+                motorTestLeftRear.setPower(1);
+                motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(-1);
-            } */
+                wait(1);
+                motorTestLeftFront.setPower(-1);
+                motorTestLeftRear.setPower(-1);
+                motorTestRightFront.setPower(1);
+                motorTestRightRear.setPower(-1);
+                wait(1);
+                motorTestLeftFront.setPower(-1);
+                motorTestLeftRear.setPower(-1);
+                motorTestRightFront.setPower(-1);
+                motorTestRightRear.setPower(-1);
+                wait(1);
+            }
+                
             while (this.gamepad1.a == true) {
                 motorTestLinearActuator.setPower(1);
             }
-            while (this.gamepad1.y == true) {
-                telemetry.addData("TextToSpeech", "test");
-                tts.setLanguage(Locale.US);
-                tts.speak("IT'S ALIVE!!! ALIVE!!!", TextToSpeech.QUEUE_ADD, null);
-            }
+           
             telemetry.addData("Status", "Running");
             telemetry.update();
         }
