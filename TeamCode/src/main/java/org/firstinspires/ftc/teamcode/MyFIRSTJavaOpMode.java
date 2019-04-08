@@ -124,6 +124,11 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             while (this.gamepad1.a == true) {
                 motorTestLinearActuator.setPower(1);
             }
+                      
+            while (this.gamepad1.b == true) {
+                motorTestLinearActuator.setPower(-
+                                                1);
+            }
            
             telemetry.addData("Status", "Running");
             telemetry.update();
