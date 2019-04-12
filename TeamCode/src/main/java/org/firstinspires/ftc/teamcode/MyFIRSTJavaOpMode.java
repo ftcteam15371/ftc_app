@@ -5,26 +5,26 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.Gyroscope;
+//import com.qualcomm.robotcore.hardware.DistanceSensor;
+//import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 import java.util.Locale;
 @TeleOp
 public class MyFIRSTJavaOpMode extends LinearOpMode {
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
-    private Gyroscope imu;
+    //private Gyroscope imu;
     private DcMotor motorTestLeftFront;
     private DcMotor motorTestLeftRear;
     private DcMotor motorTestRightFront;
     private DcMotor motorTestRightRear;
     private DcMotor motorTestLinearActuator;
     private DigitalChannel digitalTouch;
-    private DistanceSensor sensorColorRange;
+    //private DistanceSensor sensorColorRange;
     private Servo servoTest;
     private TextToSpeech tts;
     @Override
     public void runOpMode() {
-        imu = hardwareMap.get(Gyroscope.class, "imu");
+        //imu = hardwareMap.get(Gyroscope.class, "imu");
         motorTestLeftFront = hardwareMap.get(DcMotor.class, "motorFrontLeft");
         motorTestLeftRear = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorTestRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
@@ -32,7 +32,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         motorTestLinearActuator = hardwareMap.get(DcMotor.class, "motorLinearActuator");
         // these are never used
         digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
-        sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
+        //sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
         servoTest = hardwareMap.get(Servo.class, "servoTest");
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -108,17 +108,17 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestLeftRear.setPower(1);
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(-1);
-                wait(1);
+                sleep(1);
                 motorTestLeftFront.setPower(-1);
                 motorTestLeftRear.setPower(-1);
                 motorTestRightFront.setPower(1);
                 motorTestRightRear.setPower(-1);
-                wait(1);
+                sleep(1);
                 motorTestLeftFront.setPower(-1);
                 motorTestLeftRear.setPower(-1);
                 motorTestRightFront.setPower(-1);
                 motorTestRightRear.setPower(-1);
-                wait(1);
+                sleep(1);
             }
                 
             while (this.gamepad1.a == true) {
@@ -126,8 +126,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             }
                       
             while (this.gamepad1.b == true) {
-                motorTestLinearActuator.setPower(-
-                                                1);
+                motorTestLinearActuator.setPower(-1);
             }
            
             telemetry.addData("Status", "Running");
@@ -135,3 +134,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         }
     }
 }
+/* TODO Linear Actuator Final Code Is Done
+TODO Diagonal Strafing (Maybe)
+TODO Finish Grabber Code
+ */
