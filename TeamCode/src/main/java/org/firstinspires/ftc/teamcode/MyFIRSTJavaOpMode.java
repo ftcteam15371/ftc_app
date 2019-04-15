@@ -18,6 +18,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
     private DcMotor motorTestRightFront;
     private DcMotor motorTestRightRear;
     private DcMotor motorTestLinearActuator;
+    private DcMotor motorTestGrabber;
     private DigitalChannel digitalTouch;
     //private DistanceSensor sensorColorRange;
     private Servo servoTest;
@@ -30,6 +31,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         motorTestRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorTestRightRear = hardwareMap.get(DcMotor.class, "motorBackRight");
         motorTestLinearActuator = hardwareMap.get(DcMotor.class, "motorLinearActuator");
+        motorTestGrabber = hardwareMap.get(DcMotor.class, "motorGrabber");
         // these are never used
         digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         //sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
@@ -44,6 +46,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         double tgtPowerLeftFront = 0;
         double tgtPowerLeftRear = 0;
         double tgtPowerLinearActuator = 0;
+        double tgtPowerGrabber = 1;
         while (opModeIsActive()) {
             // simple movement using the joysticks
                 if (Math.abs(this.gamepad1.right_stick_y) > 0) ; {
@@ -75,8 +78,11 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             telemetry.addData("Left Front Motor Power", motorTestLeftFront.getPower());
             telemetry.addData("Left Rear Motor Power", motorTestLeftRear.getPower());
             motorTestLinearActuator.setPower(tgtPowerLinearActuator);
+            motorTestGrabber.setPower(tgtPowerGrabber);
             telemetry.addData("Target Linear Actuator Power", tgtPowerLinearActuator );
+            telemetry.addData("Target Grabber Power", tgtPowerGrabber );
             telemetry.addData("Linear Actuator Motor Power", motorTestLinearActuator.getPower());
+            telemetry.addData("Grabber Power", motorTestGrabber.getPower());
             // D-Psd controls.
             while (this.gamepad1.dpad_down == true) {
                 motorTestLeftFront.setPower(-1);
@@ -120,21 +126,18 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestRightRear.setPower(-1);
                 sleep(1);
             }
-                
             while (this.gamepad1.a == true) {
-                motorTestLinearActuator.setPower(1);
+                motorTestLeftFront.setPower(0);
+                motorTestLeftRear.setPower(0);
+                motorTestRightFront.setPower(0);
+                motorTestRightRear.setPower(0);
+                motorTestLinearActuator.setPower(-this.gamepad1.left_stick_y);
             }
-                      
-            while (this.gamepad1.b == true) {
-                motorTestLinearActuator.setPower(-1);
-            }
-           
             telemetry.addData("Status", "Running");
             telemetry.update();
         }
     }
 }
-/* TODO Linear Actuator Final Code Is Done
-TODO Diagonal Strafing (Maybe)
+/*
 TODO Finish Grabber Code
  */
