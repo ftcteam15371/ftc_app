@@ -18,6 +18,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
     // https://github.com/trc492/FtcSamples/blob/master/Ftc3543Lib/src/main/java/trclib/TrcMecanumDriveBase.java
     // https://www.google.com/search?safe=on&q=ftc+java+mecanum
 
+    // Coach M: I suggest using variable names such as motorLeftFront.  Drop the 'test'
     private Gyroscope imu;
     private DcMotor motorTestLeftFront;
     private DcMotor motorTestLeftRear;
@@ -56,6 +57,8 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
            Changed right and left for easier steering.
             Buttons added to do straight
              */
+
+            // Coach M: this area of code needs some spacing and comments
             tgtPowerRightFront = this.gamepad1.right_stick_y;
             tgtPowerRightRear = this.gamepad1.right_stick_y;
             motorTestRightFront.setPower(tgtPowerRightFront);
