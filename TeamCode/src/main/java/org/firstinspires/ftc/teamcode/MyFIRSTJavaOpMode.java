@@ -13,6 +13,12 @@ import java.util.Locale;
 public class MyFIRSTJavaOpMode extends LinearOpMode {
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
     //private Gyroscope imu;
+    
+    // CC: Todo: Autonomous opmode
+    // CC: Todo: Proportional strafing
+    // CC: Todo: Let's get a servo working.
+    
+    // CC: Let's get rid of the "Test" in these variables
     private DcMotor motorTestLeftFront;
     private DcMotor motorTestLeftRear;
     private DcMotor motorTestRightFront;
