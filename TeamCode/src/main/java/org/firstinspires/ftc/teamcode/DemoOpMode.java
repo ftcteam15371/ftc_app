@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.speech.tts.TextToSpeech;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,8 +10,10 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import java.util.Locale;
+
 @TeleOp
-public class MyFIRSTJavaOpMode extends LinearOpMode {
+public class DemoOpMode extends LinearOpMode {
 
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
 
@@ -25,7 +29,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
     private DigitalChannel digitalTouch;
     private DistanceSensor sensorColorRange;
     private Servo servoTest;
-
+    private TextToSpeech tts;
 
     @Override
     public void runOpMode() {
@@ -47,6 +51,9 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
 
+
+
+
         // Run until the end of the match (driver presses STOP)
         double tgtPowerRightFront = 0;
         double tgtPowerRightRear = 0;
@@ -56,18 +63,13 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             //Change Notes: made the diagonals. they probably don't work, so just revert them if they don't.
             //yep.
 
-            // simple forward - backwards movement, using the joystick,s
+            // simple forward - backwards movement, using the joysticks
             
-            //
-            // The brackets are wrong on these first two
-            //
-            {
-                if (Math.abs(this.gamepad1.right_stick_y) > 0) ;
+                if (Math.abs(this.gamepad1.right_stick_y) > 0) ; {
                 motorTestRightFront.setPower(this.gamepad1.right_stick_y);
                 motorTestRightRear.setPower(this.gamepad1.right_stick_y);
             }
-            {
-              if (Math.abs(this.gamepad1.left_stick_y) > 0);
+              if (Math.abs(this.gamepad1.left_stick_y) > 0); {
                     motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
                     motorTestLeftRear.setPower(-this.gamepad1.left_stick_y);
             }
@@ -95,6 +97,9 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             telemetry.addData("Motor Power Left Rear", motorTestLeftRear.getPower());
             // D-Psd controls.
             while (this.gamepad1.dpad_down == true) {
+                telemetry.addData("TextToSpeech", "test");
+                tts.setLanguage(Locale.US);
+                tts.speak("Backwards Movement", TextToSpeech.QUEUE_ADD, null);
                 motorTestLeftFront.setPower(-1);
                 motorTestLeftRear.setPower(-1);
                 motorTestRightFront.setPower(1);
@@ -102,32 +107,41 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             }
             //left trigger go backwards
             while (this.gamepad1.dpad_up == true) {
+                telemetry.addData("TextToSpeech", "test");
+                tts.setLanguage(Locale.US);
+                tts.speak("Forward Movement", TextToSpeech.QUEUE_ADD, null);
                 motorTestLeftFront.setPower(1);
                 motorTestLeftRear.setPower(1);
                 motorTestRightFront.setPower(-1);
-                motorTestRightRear.setPower(-1);
-            }
-            while (this.gamepad1.dpad_left == true) {
-                motorTestLeftFront.setPower(-1);
-                motorTestLeftRear.setPower(1);
-                motorTestRightFront.setPower(-1);
-                motorTestRightRear.setPower(1);
-            }
-            while (this.gamepad1.dpad_right == true) {
-                motorTestLeftFront.setPower(1);
-                motorTestLeftRear.setPower(-1);
-                motorTestRightFront.setPower(1);
                 motorTestRightRear.setPower(-1);
             }
 
-            while (this.gamepad1.right_trigger == 1) {
+            while (this.gamepad1.dpad_left == true) {
+                telemetry.addData("TextToSpeech", "test");
+                tts.setLanguage(Locale.US);
+                tts.speak("Left Strafe", TextToSpeech.QUEUE_ADD, null);
+                motorTestLeftRear.setPower(1);
+                motorTestRightFront.setPower(-1);
+                motorTestRightRear.setPower(1);
+                motorTestLeftFront.setPower(-1);
+            }
+            while (this.gamepad1.dpad_right == true) {
+                telemetry.addData("TextToSpeech", "test");
+                tts.setLanguage(Locale.US);
+                tts.speak("Right Strafe", TextToSpeech.QUEUE_ADD, null);
                 motorTestRightFront.setPower(1);
-                motorTestRightRear.setPower(-1);
                 motorTestLeftFront.setPower(1);
                 motorTestLeftRear.setPower(-1);
+                motorTestRightRear.setPower(-1);
             }
+            //DIAGONAL TESTING GROUNDS (PUBG theme plays)
+           /* while (this.gamepad1.right_trigger == 0); {
+                motorTestLeftFront.setPower(1);
+                motorTestRightRear.setPower(-1);
+            } */
             telemetry.addData("Status", "Running");
             telemetry.update();
+
         }
     }
 }
