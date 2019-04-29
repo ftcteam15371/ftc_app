@@ -13,6 +13,15 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
 
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
 
+    // CC: Todo: Autonomous opmode
+    // CC: Todo: Proportional strafing
+    // CC: Todo: Let's get a servo working.
+    // CC: Todo: Add code to limit the travel of the linear actuator, such as explained here:
+    //           https://www.youtube.com/watch?v=Vgye8ZsW7uw&list=LLwEHC44E7sPhbNzBcmWoEgA
+    
+
+    // CC: Let's get rid of the "Test" in these variables
+    
     // Sample mecanum drive code:
     // https://ftcforum.usfirst.org/forum/ftc-technology/android-studio/60054-mecanum-wheels-programming
     // https://github.com/trc492/FtcSamples/blob/master/Ftc3543Lib/src/main/java/trclib/TrcMecanumDriveBase.java
