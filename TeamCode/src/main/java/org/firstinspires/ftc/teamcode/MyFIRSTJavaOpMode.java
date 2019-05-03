@@ -10,25 +10,23 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class MyFIRSTJavaOpMode extends LinearOpMode {
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
     // CC: Todo: Autonomous opmode
-    // CC: Todo: Proportional strafing
     // CC: Todo: Let's get a servo working.
     // CC: Todo: Add code to limit the time travel of the linear actuator, such as explained here:
     // https://www.youtube.com/watch?v=Vgye8ZsW7uw&list=LLwEHC44E7sPhbNzBcmWoEgA
-    // Sample mecanum drive code:
-    // https://ftcforum.usfirst.org/forum/ftc-technology/android-studio/60054-mecanum-wheels-programming
-    // https://github.com/trc492/FtcSamples/blob/master/Ftc3543Lib/src/main/java/trclib/TrcMecanumDriveBase.java
-    // https://www.google.com/search?safe=on&q=ftc+java+mecanum
     private Gyroscope imu;
     private DcMotor motorLeftFront;
     private DcMotor motorLeftRear;
     private DcMotor motorRightFront;
     private DcMotor motorRightRear;
+    private DcMotor motorLinearActuator;
+    private DcMotor motorLinearSlide;
     private DigitalChannel digitalTouch;
     private DistanceSensor sensorColorRange;
     private Servo servoTest;
     private Servo notAServo;
     private Servo mayhapAServo;
     private Servo servosWillTakeOverTheWorld;
+
     @Override
     public void runOpMode() {
         // What? No comments? What is this code supposed to do???
@@ -39,6 +37,9 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         motorRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorRightRear = hardwareMap.get(DcMotor.class, "motorBackRight");
         notAServo = hardwareMap.get(Servo.class, "servoLie1");
+        mayhapAServo = hardwareMap.get(Servo.class, "servoLie2");
+        servosWillTakeOverTheWorld = hardwareMap.get(Servo.class, "servoLie3");
+
         // these are never used
         digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
@@ -52,22 +53,22 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         double tgtPowerRightRear = 0;
         double tgtPowerLeftFront = 0;
         double tgtPowerLeftRear = 0;
+        double tgtPowerLinearActuator = 0;
+        double tgtPowerLinearSlide = 0;
+        double tgtPowerServoLie1 = 0;
+        double tgtPowerServoLie2 = 0;
+        double tgtPowerServoLie3 = 0;
         while (opModeIsActive()) {
-            //Change Notes: made the diagonals. they probably don't work, so just revert them if they don't.
-            //yep.
-            // simple forward - backwards movement, using the joystick,s
-            //
-            // The brackets are wrong on these first two
-            //
+            // simple forward - backwards movement, using the joysticks
             {
                 if (Math.abs(this.gamepad1.right_stick_y) > 0) ;
                 motorRightFront.setPower(this.gamepad1.right_stick_y);
                 motorRightRear.setPower(this.gamepad1.right_stick_y);
             }
             {
-              if (Math.abs(this.gamepad1.left_stick_y) > 0);
-                    motorLeftFront.setPower(-this.gamepad1.left_stick_y);
-                    motorLeftRear.setPower(-this.gamepad1.left_stick_y);
+                if (Math.abs(this.gamepad1.left_stick_y) > 0) ;
+                motorLeftFront.setPower(-this.gamepad1.left_stick_y);
+                motorLeftRear.setPower(-this.gamepad1.left_stick_y);
             }
             if (this.gamepad1.left_stick_x == 0 & this.gamepad1.left_stick_y == 0) {
                 motorLeftFront.setPower(0);
@@ -89,6 +90,10 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             telemetry.addData("Target Power Left Rear", tgtPowerLeftRear);
             telemetry.addData("Motor Power Left Front", motorLeftFront.getPower());
             telemetry.addData("Motor Power Left Rear", motorLeftRear.getPower());
+            motorLinearActuator.setPower(tgtPowerLinearActuator);
+            motorLinearSlide.setPower(tgtPowerLinearSlide);
+
+
             // D-Psd controls.
             while (this.gamepad1.dpad_down == true) {
                 motorLeftFront.setPower(-1);
@@ -115,7 +120,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorRightFront.setPower(1);
                 motorRightRear.setPower(-1);
             }
-            while (this.gamepad1.right_trigger == 1) {
+            while (this.gamepad1.dpad_down == true) {
                 motorRightFront.setPower(1);
                 motorRightRear.setPower(-1);
                 motorLeftFront.setPower(1);
@@ -126,15 +131,23 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorLeftRear.setPower(1);
                 motorRightFront.setPower(-1);
                 motorRightRear.setPower(-1);
-                sleep (1);
+                sleep(1);
                 motorLeftFront.setPower(-1);
                 motorLeftRear.setPower(-1);
                 motorRightFront.setPower(1);
                 motorRightRear.setPower(1);
                 sleep(1);
             }
-            telemetry.addData("Status", "Running");
-            telemetry.update();
+            while (this.gamepad1.a == true) {
+                motorLeftFront.setPower(0);
+                motorLeftRear.setPower(0);
+                motorRightFront.setPower(0);
+                motorRightRear.setPower(0);
+                motorLinearActuator.setPower(-this.gamepad1.left_stick_y);
+
+                telemetry.addData("Status", "Running");
+                telemetry.update();
+            }
         }
     }
 }
