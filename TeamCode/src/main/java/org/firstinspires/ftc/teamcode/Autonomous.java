@@ -20,24 +20,19 @@ public class Autonomous extends LinearOpMode {
     private DcMotor motorRightRear;
     private DcMotor motorLinearActuator;
     private DcMotor motorLinearSlide;
-    private DigitalChannel digitalTouch;
-    private DistanceSensor sensorColorRange;
-    private Servo servoTest;
-
+    //private DigitalChannel digitalTouch;
+    //private DistanceSensor sensorColorRange;
     @Override
     public void runOpMode() {
-        // What? No comments? What is this code supposed to do???
-        // Stuff.
-        imu = hardwareMap.get(Gyroscope.class, "imu");
+        //imu = hardwareMap.get(Gyroscope.class, "imu");
         motorLeftFront = hardwareMap.get(DcMotor.class, "motorFrontLeft");
         motorLeftRear = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorRightRear = hardwareMap.get(DcMotor.class, "motorBackRight");
-
-        // these are never used
-        digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
-        sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
-        servoTest = hardwareMap.get(Servo.class, "servoTest");
+        //digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
+        //sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
+        motorLinearActuator = hardwareMap.get(DcMotor.class, "motorLinearActuator");
+        motorLinearSlide = hardwareMap.get(DcMotor.class, "motorLinearSlide");
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         // Wait for the game to start (driver presses START)
@@ -50,7 +45,6 @@ public class Autonomous extends LinearOpMode {
         double tgtPowerLinearActuator = 0;
         double tgtPowerLinearSlide = 0;
         while (opModeIsActive()) {
-
             motorRightFront.setPower(tgtPowerRightFront);
             motorRightRear.setPower(tgtPowerRightRear);
             telemetry.addData("Target Power Right Front", tgtPowerRightFront);
@@ -65,24 +59,9 @@ public class Autonomous extends LinearOpMode {
             telemetry.addData("Motor Power Left Rear", motorLeftRear.getPower());
             motorLinearActuator.setPower(tgtPowerLinearActuator);
             motorLinearSlide.setPower(tgtPowerLinearSlide);
-            motorLeftFront.setPower(1);
             motorLeftRear.setPower(1);
-            motorRightFront.setPower(1);
-            motorRightRear.setPower(1);
-            sleep(100);
-            motorRightRear.setPower(1);
-            motorRightFront.setPower(1);
-            sleep(100);
-            motorLeftFront.setPower(1);
-            motorLeftRear.setPower(1);
-            motorRightFront.setPower(1);
-            motorRightRear.setPower(1);
-            sleep(100);
-            motorLeftFront.setPower(0);
-            motorLeftRear.setPower(0);
-            motorRightFront.setPower(0);
-            motorRightRear.setPower(0);
-
+                telemetry.addData("Status", "Running");
+                telemetry.update();
+            }
         }
     }
-}
