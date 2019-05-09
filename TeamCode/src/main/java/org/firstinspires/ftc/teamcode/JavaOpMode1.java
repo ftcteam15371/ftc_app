@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,12 +6,9 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
-
 @TeleOp
-public class MyFIRSTJavaOpMode extends LinearOpMode {
-
+public class JavaOpMode1 extends LinearOpMode {
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
-
     // Sample mecanum drive code:
     // https://ftcforum.usfirst.org/forum/ftc-technology/android-studio/60054-mecanum-wheels-programming
     // https://github.com/trc492/FtcSamples/blob/master/Ftc3543Lib/src/main/java/trclib/TrcMecanumDriveBase.java
@@ -25,8 +21,6 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
     private DigitalChannel digitalTouch;
     // private DistanceSensor sensorColorRange;
     private Servo servoTest;
-
-
     @Override
     public void runOpMode() {
         // What? No comments? What is this code supposed to do???
@@ -36,17 +30,14 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         motorLeftRear = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorRightRear = hardwareMap.get(DcMotor.class, "motorBackRight");
-        
         // these are never used
         digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         // sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
         servoTest = hardwareMap.get(Servo.class, "servoTest");
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         // Wait for the game to start (driver presses START)
         waitForStart();
-
         // Run until the end of the match (driver presses STOP)
         double tgtPowerRightFront = 0;
         double tgtPowerRightRear = 0;
@@ -56,9 +47,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         while (opModeIsActive()) {
             //Change Notes: made the diagonals. they probably don't work, so just revert them if they don't.
             //yep.
-
             // simple forward - backwards movement, using the joystick,s
-            
             //
             // The brackets are wrong on these first two
             //
@@ -72,7 +61,6 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                     motorLeftFront.setPower(-this.gamepad1.left_stick_y);
                     motorLeftRear.setPower(-this.gamepad1.left_stick_y);
             }
-
             if (this.gamepad1.left_stick_x == 0 & this.gamepad1.left_stick_y == 0) {
                 motorLeftFront.setPower(0);
                 motorLeftRear.setPower(0);
@@ -81,7 +69,6 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorRightFront.setPower(0);
                 motorRightRear.setPower(0);
             }
-
             motorRightFront.setPower(-tgtPowerRightFront);
             motorRightRear.setPower(-tgtPowerRightRear);
             telemetry.addData("Target Power Right Front", tgtPowerRightFront);
@@ -138,7 +125,6 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 servoPosition = 0.5;
                 servoTest.setPosition(servoPosition);
             }
-
             telemetry.addData("Status", "Running");
             telemetry.update();
         }

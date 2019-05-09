@@ -59,7 +59,25 @@ public class Autonomous extends LinearOpMode {
             telemetry.addData("Motor Power Left Rear", motorLeftRear.getPower());
             motorLinearActuator.setPower(tgtPowerLinearActuator);
             motorLinearSlide.setPower(tgtPowerLinearSlide);
-            motorLeftRear.setPower(1);
+            long startTime = System.currentTimeMillis(); //fetch starting time
+            while(false||(System.currentTimeMillis()-startTime)<10000)
+            {
+                motorLeftFront.setPower(1);
+                motorLeftRear.setPower(1);
+                motorRightFront.setPower(1);
+                motorRightRear.setPower(1);
+            }
+            startTime = System.currentTimeMillis();
+            while(false||(System.currentTimeMillis()-startTime)<10000)
+            {
+                motorLeftFront.setPower(0.25);
+                motorLeftRear.setPower(0.25);
+                motorRightFront.setPower(0.25);
+                motorRightRear.setPower(0.25);
+            }
+
+            sleep(100);
+
                 telemetry.addData("Status", "Running");
                 telemetry.update();
             }
