@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
-@TeleOp
-public class Autonomous extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous
+public class AutonomousOpMode extends LinearOpMode {
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
     // CC: Todo: Autonomous opmode
     // CC: Todo: Let's get a servo working.
@@ -20,6 +20,7 @@ public class Autonomous extends LinearOpMode {
     private DcMotor motorRightRear;
     private DcMotor motorLinearActuator;
     private DcMotor motorLinearSlide;
+    private float allMotors;
     //private DigitalChannel digitalTouch;
     //private DistanceSensor sensorColorRange;
     @Override
@@ -38,47 +39,43 @@ public class Autonomous extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
         // Run until the end of the match (driver presses STOP)
-        double tgtPowerRightFront = 0;
-        double tgtPowerRightRear = 0;
-        double tgtPowerLeftFront = 0;
-        double tgtPowerLeftRear = 0;
-        double tgtPowerLinearActuator = 0;
-        double tgtPowerLinearSlide = 0;
-        while (opModeIsActive()) {
-            motorRightFront.setPower(tgtPowerRightFront);
-            motorRightRear.setPower(tgtPowerRightRear);
-            telemetry.addData("Target Power Right Front", tgtPowerRightFront);
-            telemetry.addData("Target Power Right Rear", tgtPowerRightRear);
-            telemetry.addData("Motor Power Right Front", motorRightFront.getPower());
-            telemetry.addData("Motor Power Right Rear", motorRightRear.getPower());
-            motorLeftFront.setPower(tgtPowerLeftFront);
-            motorLeftRear.setPower(tgtPowerLeftRear);
-            telemetry.addData("Target Power Left Front", tgtPowerLeftFront);
-            telemetry.addData("Target Power Left Rear", tgtPowerLeftRear);
-            telemetry.addData("Motor Power Left Front", motorLeftFront.getPower());
-            telemetry.addData("Motor Power Left Rear", motorLeftRear.getPower());
-            motorLinearActuator.setPower(tgtPowerLinearActuator);
-            motorLinearSlide.setPower(tgtPowerLinearSlide);
-            long startTime = System.currentTimeMillis(); //fetch starting time
-            while(false||(System.currentTimeMillis()-startTime)<10000)
-            {
+        double  tgtPowerRightFront = 0;
+        double  tgtPowerRightRear = 0;
+        double  tgtPowerLeftFront = 0;
+        double  tgtPowerLeftRear = 0;
+        double  tgtPowerLinearActuator = 0;
+        double  tgtPowerLinearSlide = 0;
+        boolean  DoTheThing = false;
+        while   (opModeIsActive()) {
+            if (gamepad1.a = true) {
+                sleep(1000);
+                DoTheThing = true;
+            }
+            if (DoTheThing = true) {
+                DoTheThing = false;
                 motorLeftFront.setPower(1);
                 motorLeftRear.setPower(1);
                 motorRightFront.setPower(1);
                 motorRightRear.setPower(1);
-            }
-            startTime = System.currentTimeMillis();
-            while(false||(System.currentTimeMillis()-startTime)<10000)
-            {
-                motorLeftFront.setPower(0.25);
-                motorLeftRear.setPower(0.25);
-                motorRightFront.setPower(0.25);
-                motorRightRear.setPower(0.25);
+                sleep(1000);
+                motorLeftFront.setPower(1);
+                motorLeftRear.setPower(-1);
+                motorRightFront.setPower(1);
+                motorRightRear.setPower(-1);
+                sleep(1000);
+                motorLeftFront.setPower(-1);
+                motorLeftRear.setPower(-1);
+                motorRightFront.setPower(-1);
+                motorRightRear.setPower(-1);
+                sleep(1000);
+                motorLeftFront.setPower(-1);
+                motorLeftRear.setPower(1);
+                motorRightFront.setPower(-1);
+                motorRightRear.setPower(1);
+                sleep(1000);
             }
 
-            sleep(100);
-
-                telemetry.addData("Status", "Running");
+            telemetry.addData("Status", "Running");
                 telemetry.update();
             }
         }
