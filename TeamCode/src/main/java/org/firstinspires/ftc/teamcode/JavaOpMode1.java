@@ -9,6 +9,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp
 public class JavaOpMode1 extends LinearOpMode {
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
+    
+    // Coach's comments:
+    // Take a look at this: https://github.com/Beta8397/virtual_robot
+    // Could help us with testing
+    //
+    
     // Sample mecanum drive code:
     // https://ftcforum.usfirst.org/forum/ftc-technology/android-studio/60054-mecanum-wheels-programming
     // https://github.com/trc492/FtcSamples/blob/master/Ftc3543Lib/src/main/java/trclib/TrcMecanumDriveBase.java
