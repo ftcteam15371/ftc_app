@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
@@ -20,18 +21,16 @@ public class AutonomousOpMode extends LinearOpMode {
     private DcMotor motorRightRear;
     private DcMotor motorLinearActuator;
     private DcMotor motorLinearSlide;
-    private float allMotors;
     //private DigitalChannel digitalTouch;
     //private DistanceSensor sensorColorRange;
     @Override
     public void runOpMode() {
+
         //imu = hardwareMap.get(Gyroscope.class, "imu");
-        motorLeftFront = hardwareMap.get(DcMotor.class, "motorFrontLeft");
-        motorLeftRear = hardwareMap.get(DcMotor.class, "motorBackLeft");
-        motorRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
+        motorLeftFront = hardwareMap.dcMotor.get("motorFrontLeft");
+        motorLeftRear = hardwareMap.dcMotor.get("motorBackLeft");
+        motorRightFront = hardwareMap.dcMotor.get("motorFrontRight");
         motorRightRear = hardwareMap.get(DcMotor.class, "motorBackRight");
-        //digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
-        //sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
         motorLinearActuator = hardwareMap.get(DcMotor.class, "motorLinearActuator");
         motorLinearSlide = hardwareMap.get(DcMotor.class, "motorLinearSlide");
         telemetry.addData("Status", "Initialized");
@@ -39,41 +38,10 @@ public class AutonomousOpMode extends LinearOpMode {
         // Wait for the game to start (driver presses START)
         waitForStart();
         // Run until the end of the match (driver presses STOP)
-        double  tgtPowerRightFront = 0;
-        double  tgtPowerRightRear = 0;
-        double  tgtPowerLeftFront = 0;
-        double  tgtPowerLeftRear = 0;
-        double  tgtPowerLinearActuator = 0;
-        double  tgtPowerLinearSlide = 0;
-        boolean  DoTheThing = false;
+       motorLinearActuator.setDirection(DcMotor.Direction.REVERSE);
+       motorLinearActuator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         while   (opModeIsActive()) {
-            if (gamepad1.a = true) {
-                sleep(1000);
-                DoTheThing = true;
-            }
-            if (DoTheThing = true) {
-                DoTheThing = false;
-                motorLeftFront.setPower(1);
-                motorLeftRear.setPower(1);
-                motorRightFront.setPower(1);
-                motorRightRear.setPower(1);
-                sleep(1000);
-                motorLeftFront.setPower(1);
-                motorLeftRear.setPower(-1);
-                motorRightFront.setPower(1);
-                motorRightRear.setPower(-1);
-                sleep(1000);
-                motorLeftFront.setPower(-1);
-                motorLeftRear.setPower(-1);
-                motorRightFront.setPower(-1);
-                motorRightRear.setPower(-1);
-                sleep(1000);
-                motorLeftFront.setPower(-1);
-                motorLeftRear.setPower(1);
-                motorRightFront.setPower(-1);
-                motorRightRear.setPower(1);
-                sleep(1000);
-            }
+
 
             telemetry.addData("Status", "Running");
                 telemetry.update();

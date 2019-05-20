@@ -9,12 +9,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp
 public class JavaOpMode1 extends LinearOpMode {
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
-    
+
     // Coach's comments:
     // Take a look at this: https://github.com/Beta8397/virtual_robot
     // Could help us with testing
     //
-    
+
     // Sample mecanum drive code:
     // https://ftcforum.usfirst.org/forum/ftc-technology/android-studio/60054-mecanum-wheels-programming
     // https://github.com/trc492/FtcSamples/blob/master/Ftc3543Lib/src/main/java/trclib/TrcMecanumDriveBase.java
@@ -24,9 +24,15 @@ public class JavaOpMode1 extends LinearOpMode {
     private DcMotor motorLeftRear;
     private DcMotor motorRightFront;
     private DcMotor motorRightRear;
+    private DcMotor motorLinearActuator;
+    private DcMotor motorLinearSlideX;
+    private DcMotor motorLinearSlideY;
     private DigitalChannel digitalTouch;
+    private Boolean mechanicalSensor1;
+    private Boolean mechanicalSensor2;
     // private DistanceSensor sensorColorRange;
     private Servo servoTest;
+
     @Override
     public void runOpMode() {
         // What? No comments? What is this code supposed to do???
@@ -50,6 +56,9 @@ public class JavaOpMode1 extends LinearOpMode {
         double tgtPowerLeftFront = 0;
         double tgtPowerLeftRear = 0;
         double servoPosition = 0.5;
+        motorLinearActuator.setDirection(DcMotor.Direction.REVERSE);
+        motorLinearActuator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorLinearActuator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         while (opModeIsActive()) {
             //Change Notes: made the diagonals. they probably don't work, so just revert them if they don't.
             //yep.
@@ -63,9 +72,9 @@ public class JavaOpMode1 extends LinearOpMode {
                 motorRightRear.setPower(this.gamepad1.right_stick_y);
             }
             {
-              if (Math.abs(this.gamepad1.left_stick_y) > 0);
-                    motorLeftFront.setPower(-this.gamepad1.left_stick_y);
-                    motorLeftRear.setPower(-this.gamepad1.left_stick_y);
+                if (Math.abs(this.gamepad1.left_stick_y) > 0) ;
+                motorLeftFront.setPower(-this.gamepad1.left_stick_y);
+                motorLeftRear.setPower(-this.gamepad1.left_stick_y);
             }
             if (this.gamepad1.left_stick_x == 0 & this.gamepad1.left_stick_y == 0) {
                 motorLeftFront.setPower(0);
@@ -131,8 +140,10 @@ public class JavaOpMode1 extends LinearOpMode {
                 servoPosition = 0.5;
                 servoTest.setPosition(servoPosition);
             }
-            telemetry.addData("Status", "Running");
-            telemetry.update();
+            if (this.gamepad1.a) {
+
+            }
+
         }
     }
 }
