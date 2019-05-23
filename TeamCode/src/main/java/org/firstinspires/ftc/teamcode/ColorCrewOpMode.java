@@ -90,7 +90,7 @@ public class ColorCrewOpMode extends LinearOpMode {
             motorLeftFront.setPower(-1);
             motorLeftRear.setPower(1);
         }
-        if (strafeRight == false) {
+        if (strafeRight  == false) {
             motorRightFront.setPower(0);
             motorRightRear.setPower(0);
             motorLeftFront.setPower(0);
