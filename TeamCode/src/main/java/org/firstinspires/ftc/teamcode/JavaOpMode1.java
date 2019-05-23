@@ -35,37 +35,98 @@ public class JavaOpMode1 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        // What? No comments? What is this code supposed to do???
-        // Stuff.
-        // imu = hardwareMap.get(Gyroscope.class, "imu");
+
+        motorLinearActuator = hardwareMap.get(DcMotor.class, "motorLinearActuator");
         motorLeftFront = hardwareMap.get(DcMotor.class, "motorFrontLeft");
         motorLeftRear = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorRightRear = hardwareMap.get(DcMotor.class, "motorBackRight");
-        // these are never used
         digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
-        // sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
         servoTest = hardwareMap.get(Servo.class, "servoTest");
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        // Wait for the game to start (driver presses START)
+
         waitForStart();
-        // Run until the end of the match (driver presses STOP)
+
         double tgtPowerRightFront = 0;
         double tgtPowerRightRear = 0;
         double tgtPowerLeftFront = 0;
         double tgtPowerLeftRear = 0;
         double servoPosition = 0.5;
+        boolean moveForward = false;
+        boolean moveBackwards = false;
+        boolean strafeRight = false;
+        boolean strafeLeft = false;
+
+        if (moveForward == true) {
+            motorRightFront.setPower(1);
+            motorRightRear.setPower(1);
+            motorLeftFront.setPower(1);
+            motorLeftRear.setPower(1);
+        }
+        if (moveForward == false) {
+            motorRightFront.setPower(0);
+            motorRightRear.setPower(0);
+            motorLeftFront.setPower(0);
+            motorLeftRear.setPower(0);
+        }
+        if (moveBackwards == true) {
+            motorRightFront.setPower(-1);
+            motorRightRear.setPower(-1);
+            motorLeftFront.setPower(-1);
+            motorLeftRear.setPower(-1);
+        }
+        if (moveBackwards == false) {
+            motorRightFront.setPower(0);
+            motorRightRear.setPower(0);
+            motorLeftFront.setPower(0);
+            motorLeftRear.setPower(0);
+        }
+        if (strafeLeft == true) {
+            motorRightFront.setPower(1);
+            motorRightRear.setPower(-1);
+            motorLeftFront.setPower(1);
+            motorLeftRear.setPower(-1);
+        }
+        if (strafeLeft == false) {
+            motorRightFront.setPower(0);
+            motorRightRear.setPower(0);
+            motorLeftFront.setPower(0);
+            motorLeftRear.setPower(0);
+        }
+        if (strafeRight == true) {
+            motorRightFront.setPower(-1);
+            motorRightRear.setPower(1);
+            motorLeftFront.setPower(-1);
+            motorLeftRear.setPower(1);
+        }
+        if (strafeRight == false) {
+            motorRightFront.setPower(0);
+            motorRightRear.setPower(0);
+            motorLeftFront.setPower(0);
+            motorLeftRear.setPower(0);
+        }
+
         motorLinearActuator.setDirection(DcMotor.Direction.REVERSE);
         motorLinearActuator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorLinearActuator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         while (opModeIsActive()) {
-            //Change Notes: made the diagonals. they probably don't work, so just revert them if they don't.
-            //yep.
-            // simple forward - backwards movement, using the joystick,s
-            //
-            // The brackets are wrong on these first two
-            //
+            telemetry.addData("Target Power Right Front", tgtPowerRightFront);
+            telemetry.addData("Target Power Right Rear", tgtPowerRightRear);
+            telemetry.addData("Motor Power Right Front", motorRightFront.getPower());
+            telemetry.addData("Motor Power Right Rear", motorRightRear.getPower());
+            telemetry.addData("Target Power Left Front", tgtPowerLeftFront);
+            telemetry.addData("Target Power Left Rear", tgtPowerLeftRear);
+            telemetry.addData("Motor Power Left Front", motorLeftFront.getPower());
+            telemetry.addData("Motor Power Left Rear", motorLeftRear.getPower());
+
+            motorLeftFront.setPower(-tgtPowerLeftFront);
+            motorLeftRear.setPower(-tgtPowerLeftRear);
+            motorRightFront.setPower(-tgtPowerRightFront);
+            motorRightRear.setPower(-tgtPowerRightRear);
+
             {
                 if (Math.abs(this.gamepad1.right_stick_y) > 0) ;
                 motorRightFront.setPower(this.gamepad1.right_stick_y);
@@ -76,6 +137,7 @@ public class JavaOpMode1 extends LinearOpMode {
                 motorLeftFront.setPower(-this.gamepad1.left_stick_y);
                 motorLeftRear.setPower(-this.gamepad1.left_stick_y);
             }
+
             if (this.gamepad1.left_stick_x == 0 & this.gamepad1.left_stick_y == 0) {
                 motorLeftFront.setPower(0);
                 motorLeftRear.setPower(0);
@@ -84,36 +146,15 @@ public class JavaOpMode1 extends LinearOpMode {
                 motorRightFront.setPower(0);
                 motorRightRear.setPower(0);
             }
-            motorRightFront.setPower(-tgtPowerRightFront);
-            motorRightRear.setPower(-tgtPowerRightRear);
-            telemetry.addData("Target Power Right Front", tgtPowerRightFront);
-            telemetry.addData("Target Power Right Rear", tgtPowerRightRear);
-            telemetry.addData("Motor Power Right Front", motorRightFront.getPower());
-            telemetry.addData("Motor Power Right Rear", motorRightRear.getPower());
-            motorLeftFront.setPower(-tgtPowerLeftFront);
-            motorLeftRear.setPower(-tgtPowerLeftRear);
-            telemetry.addData("Target Power Left Front", tgtPowerLeftFront);
-            telemetry.addData("Target Power Left Rear", tgtPowerLeftRear);
-            telemetry.addData("Motor Power Left Front", motorLeftFront.getPower());
-            telemetry.addData("Motor Power Left Rear", motorLeftRear.getPower());
-            // D-Psd controls.
+
             while (this.gamepad1.dpad_down == true) {
-                motorLeftFront.setPower(1);
-                motorLeftRear.setPower(1);
-                motorRightFront.setPower(-1);
-                motorRightRear.setPower(-1);
+                moveBackwards = true;
             }
             while (this.gamepad1.dpad_up == true) {
-                motorLeftFront.setPower(-1);
-                motorLeftRear.setPower(-1);
-                motorRightFront.setPower(1);
-                motorRightRear.setPower(1);
+                moveForward = true;
             }
             while (this.gamepad1.dpad_left == true) {
-                motorLeftFront.setPower(1);
-                motorLeftRear.setPower(-1);
-                motorRightFront.setPower(1);
-                motorRightRear.setPower(-1);
+                strafeLeft = true;
             }
             while (this.gamepad1.dpad_right == true) {
                 motorLeftFront.setPower(-1);
@@ -121,7 +162,7 @@ public class JavaOpMode1 extends LinearOpMode {
                 motorRightFront.setPower(-1);
                 motorRightRear.setPower(1);
             }
-            // Change position of servo. Left bumper up, right bumper down (the number)
+
             while (this.gamepad1.left_bumper == true) {
                 servoPosition = servoPosition + 0.005555;
                 if (servoPosition > 1) {
@@ -141,9 +182,12 @@ public class JavaOpMode1 extends LinearOpMode {
                 servoTest.setPosition(servoPosition);
             }
             if (this.gamepad1.a) {
+                motorLinearActuator.setTargetPosition(100);
+            }
+            if (this.gamepad1.b) {
+                motorLinearActuator.setTargetPosition(-100);
 
             }
-
         }
     }
 }
