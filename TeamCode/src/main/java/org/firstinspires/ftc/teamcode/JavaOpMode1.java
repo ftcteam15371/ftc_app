@@ -1,11 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+
 @TeleOp
 public class JavaOpMode1 extends LinearOpMode {
 
@@ -17,20 +21,21 @@ public class JavaOpMode1 extends LinearOpMode {
     private DcMotor motorLinearSlideX;
     private DcMotor motorLinearSlideY;
     private DigitalChannel digitalTouch;
-    private Boolean mechanicalSensor1;
-    private Boolean mechanicalSensor2;
     private Servo servoTest;
+    private TouchSensor limitSwitchTest;
+    private int thisIsANumber = 420;
 
     @Override
     public void runOpMode() {
 
-        motorLinearActuator = hardwareMap.get(DcMotor.class, "motorLinearActuator");
+        motorLinearActuator = hardwareMap.get(DcMotor.class, "linearActuator");
         motorLeftFront = hardwareMap.get(DcMotor.class, "motorFrontLeft");
         motorLeftRear = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorRightRear = hardwareMap.get(DcMotor.class, "motorBackRight");
         digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         servoTest = hardwareMap.get(Servo.class, "servoTest");
+        limitSwitchTest = hardwareMap.get(TouchSensor.class, "limitSwitchTest");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -95,12 +100,14 @@ public class JavaOpMode1 extends LinearOpMode {
             motorLeftFront.setPower(0);
             motorLeftRear.setPower(0);
         }
-
+        limitSwitchTest.equals(false);
+/*
         motorLinearActuator.setDirection(DcMotor.Direction.REVERSE);
         motorLinearActuator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorLinearActuator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        while (opModeIsActive()) {
+*/
+        motorLinearActuator.setDirection((DcMotor.Direction.FORWARD));
+    while (opModeIsActive()) {
             telemetry.addData("Target Power Right Front", tgtPowerRightFront);
             telemetry.addData("Target Power Right Rear", tgtPowerRightRear);
             telemetry.addData("Motor Power Right Front", motorRightFront.getPower());
@@ -178,23 +185,15 @@ public class JavaOpMode1 extends LinearOpMode {
                 servoPosition = 0.5;
                 servoTest.setPosition(servoPosition);
             }
-            if (this.gamepad1.a) {
-                sleep(500);
-                motorLinearActuator.setTargetPosition(100);
-                motorLinearActuator.setPower(1);
-                if (motorLinearActuator.isBusy() == false) {
-                    motorLinearActuator.setPower(0);
-                }
-            }
-            if (this.gamepad1.b) {
-                sleep(500);
-                motorLinearActuator.setTargetPosition(-100);
-                motorLinearActuator.setPower(1);
-                if (motorLinearActuator.isBusy() == false) {
-                    motorLinearActuator.setPower(0);
-                }
 
+            if (this.gamepad1.a = true) {
+                motorLinearActuator.setPower(1);
             }
+            if (this.gamepad1.b = true) {
+                motorLinearActuator.setPower(-1);
+            }
+
         }
+
     }
 }
