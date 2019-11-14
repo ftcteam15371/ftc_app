@@ -28,8 +28,8 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
     private DcMotor motorTestLeftRear;
     private DcMotor motorTestRightFront;
     private DcMotor motorTestRightRear;
-    private DcMotor motorTestLinearActuator;
-    private DcMotor motorTestGrabber;
+   // private DcMotor motorTestLinearActuator;
+    //private DcMotor motorTestGrabber;
     private DigitalChannel digitalTouch;
     //private DistanceSensor sensorColorRange;
     private Servo servoTest;
@@ -99,12 +99,12 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             telemetry.addData("Target Power Left Rear", tgtPowerLeftRear);
             telemetry.addData("Left Front Motor Power", motorTestLeftFront.getPower());
             telemetry.addData("Left Rear Motor Power", motorTestLeftRear.getPower());
-            motorTestLinearActuator.setPower(tgtPowerLinearActuator);
-            motorTestGrabber.setPower(tgtPowerGrabber);
-            telemetry.addData("Target Linear Actuator Power", tgtPowerLinearActuator );
-            telemetry.addData("Target Grabber Power", tgtPowerGrabber );
-            telemetry.addData("Linear Actuator Motor Power", motorTestLinearActuator.getPower());
-            telemetry.addData("Grabber Power", motorTestGrabber.getPower());
+      //      motorTestLinearActuator.setPower(tgtPowerLinearActuator);
+        //    motorTestGrabber.setPower(tgtPowerGrabber);
+      //      telemetry.addData("Target Linear Actuator Power", tgtPowerLinearActuator );
+        //    telemetry.addData("Target Grabber Power", tgtPowerGrabber );
+          //  telemetry.addData("Linear Actuator Motor Power", motorTestLinearActuator.getPower());
+            //telemetry.addData("Grabber Power", motorTestGrabber.getPower());
             // D-Psd controls.
             while (this.gamepad1.dpad_down == true) {
                 motorTestLeftFront.setPower(-1);
@@ -148,12 +148,12 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestRightRear.setPower(-1);
                 sleep(1);
             }
-            while (this.gamepad1.a == true) {
+         //   while (this.gamepad1.a == true) {
                 motorTestLeftFront.setPower(0);
                 motorTestLeftRear.setPower(0);
                 motorTestRightFront.setPower(0);
                 motorTestRightRear.setPower(0);
-                motorTestLinearActuator.setPower(-this.gamepad1.left_stick_y);
+              //  motorTestLinearActuator.setPower(-this.gamepad1.left_stick_y);
             }
             telemetry.addData("Status", "Running");
             telemetry.update();
