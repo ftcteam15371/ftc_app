@@ -12,28 +12,27 @@ import java.util.Locale;
 @TeleOp
 public class MyFIRSTJavaOpMode extends LinearOpMode {
     // Link to java docs https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
-<<<<<<< HEAD
 
+// do you ever feel like a plastic bag
     // Sample mecanum drive code:
     // https://ftcforum.usfirst.org/forum/ftc-technology/android-studio/60054-mecanum-wheels-programming
     // https://github.com/trc492/FtcSamples/blob/master/Ftc3543Lib/src/main/java/trclib/TrcMecanumDriveBase.java
     // https://www.google.com/search?safe=on&q=ftc+java+mecanum
 
     // Coach M: I suggest using variable names such as motorLeftFront.  Drop the 'test'
-    private Gyroscope imu;
-=======
+
     //private Gyroscope imu;
->>>>>>> 9fcf0853492b28d3572e927f26a0883b743560f4
+
     private DcMotor motorTestLeftFront;
     private DcMotor motorTestLeftRear;
     private DcMotor motorTestRightFront;
     private DcMotor motorTestRightRear;
-   // private DcMotor motorTestLinearActuator;
-    //private DcMotor motorTestGrabber;
+    private DcMotor motorGrabbyBoi;
+    private DcMotor motorLiftyBoi;
     private DigitalChannel digitalTouch;
-    //private DistanceSensor sensorColorRange;
     private Servo servoTest;
     private TextToSpeech tts;
+
     @Override
     public void runOpMode() {
         //imu = hardwareMap.get(Gyroscope.class, "imu");
@@ -41,8 +40,10 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         motorTestLeftRear = hardwareMap.get(DcMotor.class, "motorBackLeft");
         motorTestRightFront = hardwareMap.get(DcMotor.class, "motorFrontRight");
         motorTestRightRear = hardwareMap.get(DcMotor.class, "motorBackRight");
-        motorTestLinearActuator = hardwareMap.get(DcMotor.class, "motorLinearActuator");
-        motorTestGrabber = hardwareMap.get(DcMotor.class, "motorGrabber");
+        motorGrabbyBoi = hardwareMap.get(DcMotor.class, "Grabber");
+        motorLiftyBoi = hardwareMap.get(DcMotor.class, "Lifto");
+        // motorTestLinearActuator = hardwareMap.get(DcMotor.class, "motorLinearActuator");
+        // motorTestGrabber = hardwareMap.get(DcMotor.class, "motorGrabber");
         // these are never used
         digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         //sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
@@ -58,8 +59,9 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         double tgtPowerLeftRear = 0;
         double tgtPowerLinearActuator = 0;
         double tgtPowerGrabber = 1;
+        double digitalStopper = 0;
         while (opModeIsActive()) {
-<<<<<<< HEAD
+
             /*CHANGES: Removed negative symbol from "tgtPower = this.gamepad1.left_stick_y;,
            Changed right and left for easier steering.
             Buttons added to do straight
@@ -68,15 +70,17 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             // Coach M: this area of code needs some spacing and comments
             tgtPowerRightFront = this.gamepad1.right_stick_y;
             tgtPowerRightRear = this.gamepad1.right_stick_y;
-=======
+
             // simple movement using the joysticks
-                if (Math.abs(this.gamepad1.right_stick_y) > 0) ; {
+            if (Math.abs(this.gamepad1.right_stick_y) > 0) ;
+            {
                 motorTestRightFront.setPower(this.gamepad1.right_stick_y);
                 motorTestRightRear.setPower(this.gamepad1.right_stick_y);
             }
-              if (Math.abs(this.gamepad1.left_stick_y) > 0); {
-                    motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
-                    motorTestLeftRear.setPower(-this.gamepad1.left_stick_y);
+            if (Math.abs(this.gamepad1.left_stick_y) > 0) ;
+            {
+                motorTestLeftFront.setPower(-this.gamepad1.left_stick_y);
+                motorTestLeftRear.setPower(-this.gamepad1.left_stick_y);
             }
             if (this.gamepad1.left_stick_x == 0 & this.gamepad1.left_stick_y == 0) {
                 motorTestLeftFront.setPower(0);
@@ -86,7 +90,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestRightFront.setPower(0);
                 motorTestRightRear.setPower(0);
             }
->>>>>>> 9fcf0853492b28d3572e927f26a0883b743560f4
+
             motorTestRightFront.setPower(tgtPowerRightFront);
             motorTestRightRear.setPower(tgtPowerRightRear);
             telemetry.addData("Target Power Right Front", tgtPowerRightFront);
@@ -99,12 +103,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             telemetry.addData("Target Power Left Rear", tgtPowerLeftRear);
             telemetry.addData("Left Front Motor Power", motorTestLeftFront.getPower());
             telemetry.addData("Left Rear Motor Power", motorTestLeftRear.getPower());
-      //      motorTestLinearActuator.setPower(tgtPowerLinearActuator);
-        //    motorTestGrabber.setPower(tgtPowerGrabber);
-      //      telemetry.addData("Target Linear Actuator Power", tgtPowerLinearActuator );
-        //    telemetry.addData("Target Grabber Power", tgtPowerGrabber );
-          //  telemetry.addData("Linear Actuator Motor Power", motorTestLinearActuator.getPower());
-            //telemetry.addData("Grabber Power", motorTestGrabber.getPower());
+
             // D-Psd controls.
             while (this.gamepad1.dpad_down == true) {
                 motorTestLeftFront.setPower(-1);
@@ -131,7 +130,30 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestLeftRear.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
-            if (this.gamepad1.y == true) {
+
+            if (this.gamepad1.left_bumper = true) {
+                while (this.gamepad1.x = true) {
+                    motorGrabbyBoi.setPower(0.5);
+                }
+                while (this.gamepad1.x=true);
+                while (this.gamepad1.b = true) {
+                    motorGrabbyBoi.setPower(-0.5);
+                }
+            }
+            if (this.gamepad1.right_bumper = true){
+                while (this.gamepad1.y = true) {
+                    while (digitalStopper >= 100) {
+                        motorLiftyBoi.setPower(1);
+                        digitalStopper++;
+                    }
+                }
+                while (this.gamepad1.a =true){
+                    while (digitalStopper <= 0)
+                    motorLiftyBoi.setPower(-1);
+                    digitalStopper--;
+                }
+            }
+            /* if (this.gamepad1.y == true) {
                 motorTestLeftFront.setPower(1);
                 motorTestLeftRear.setPower(1);
                 motorTestRightFront.setPower(-1);
@@ -155,11 +177,16 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 motorTestRightRear.setPower(0);
               //  motorTestLinearActuator.setPower(-this.gamepad1.left_stick_y);
             }
+
+             */
+
+
             telemetry.addData("Status", "Running");
             telemetry.update();
         }
     }
 }
+
 /*
 TODO Finish Grabber Code
- */
+*/
