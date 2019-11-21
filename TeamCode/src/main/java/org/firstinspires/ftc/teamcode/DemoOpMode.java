@@ -134,11 +134,7 @@ public class DemoOpMode extends LinearOpMode {
                 motorTestLeftRear.setPower(-1);
                 motorTestRightRear.setPower(-1);
             }
-            //DIAGONAL TESTING GROUNDS (PUBG theme plays)
-           /* while (this.gamepad1.right_trigger == 0); {
-                motorTestLeftFront.setPower(1);
-                motorTestRightRear.setPower(-1);
-            } */
+
             telemetry.addData("Status", "Running");
             telemetry.update();
 
