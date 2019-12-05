@@ -139,7 +139,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             while (this.gamepad1.left_bumper == true) {
                 while (this.gamepad1.x == true) {
                     motorGrabber.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    motorGrabber.setTargetPosition(5000);
+                    motorGrabber.setTargetPosition(20);
                     sleep(1);
                     motorGrabber.setPower(0.25);
                 }
@@ -152,7 +152,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             while (this.gamepad1.left_bumper == true) {
                 while (this.gamepad1.y == true) {
                     motorGrabber.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    motorGrabber.setTargetPosition(000);
+                    motorGrabber.setTargetPosition(20);
                     sleep(1);
                     motorGrabber.setPower(-0.25);
                 }
@@ -193,13 +193,13 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 }
             }
             */
-                while (this.gamepad1.right_bumper == true) {
+                if (this.gamepad1.right_bumper == true) {
                     motorLifter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     motorLifter.setTargetPosition(20);
-                    while (this.gamepad1.y == true) {
+                    if (this.gamepad1.y == true) {
                         motorLifter.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                         motorLifter.setPower(0.25);
-                        telemetry.addData("encoder shit", motorLifter.getCurrentPosition());
+                        telemetry.addData("Does is Encoder work", motorLifter.getCurrentPosition());
                         telemetry.update();
                     }
                     while (this.gamepad1.y == false) {
